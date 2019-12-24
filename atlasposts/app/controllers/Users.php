@@ -1,9 +1,13 @@
 <?php
   class Users extends Controller {
 
+    private $sessionUser;
+
     public function __construct(){
       
       $this->userModel = $this->model('User');
+      $this->sessionUser = new SessionUsers;
+
     }
 
     public function login(){
@@ -35,12 +39,13 @@
       if(empty($data['username_err']) && empty($data['password_err'])){
           if($this->userModel->GetUserHashCode($data)){
           }elseif(isset($_SESSION['userDetail']['errorMessage'])){
-            flash('hata_yakalandi',  $_SESSION['userDetail']['errorMessage']);
+            flash('hata_yakalandi', $_SESSION['userDetail']['errorMessage']);
             $this->view('users/login',$data);
           }else{
-                   
+            
+            $_SESSION['AWSession'] = $this->sessionUser;
             $this->view('users/hashcode',$data);
-  
+            
           }
         
       } else {
@@ -63,27 +68,10 @@
 
   }
 
-
-    public function createUserSession($user){
-      $_SESSION['user_id'] = $user->id;
-      $_SESSION['user_name'] = $user->username;
-      $_SESSION['user_password'] = $user->password;
-      redirect('pages/index');
-    }
-
     public function logout(){
-      unset($_SESSION['user_id']);
-      unset($_SESSION['user_name']);
-      unset($_SESSION['user_password']);
+      unset($_SESSION['AWSession']);
       session_destroy();
       redirect('users/login');
     }
-    
-    public function isLoggedIn(){
-      if(isset($_SESSION['user_id'])){
-        return true;
-      }else{
-        return false;
-      }
-    }
+  
   }

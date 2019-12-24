@@ -7,6 +7,8 @@
     private $url = REQUEST_URL;
     private $detailsURL = LOGINDETAILS_URL ;
     private $customerDetailsURL = CUSTOMERDETAILS_URL;
+    private $kimlikTipi = kimlikTipi;
+    private $kimlikNo = kimlikNo;
 
     public function __construct(){
       $this->db = new Database;
@@ -67,7 +69,7 @@
     public function GetCustomerDetails($data){
       echo "<pre>";
       
-      $customerDetails = array("kimlikTipi" => $_SESSION['customerDetails']['kimlikTipi'], "kimlikNo" => $_SESSION['customerDetails']['kimlikNo']);                                                                    
+      $customerDetails = array("kimlikTipi" => $this->kimlikTipi, "kimlikNo" => $this->kimlikNo);                                                                    
       $customerDetails_string = json_encode($customerDetails);
 
       var_dump($customerDetails_string);
@@ -94,6 +96,7 @@
       var_dump($ctDetailResult);
       echo "</pre>";
       $_SESSION['customerDetails'] = $ctDetailResult;
+
 
     }
 

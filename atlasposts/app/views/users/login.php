@@ -12,9 +12,8 @@
     <div class="col-md-3 mx-auto">
       <div class="card card-body bg-light mt-5">
         <h2 align="center">Oturum Aç</h2>
-          <?php flash('credentials_empty') ?>
-          <?php flash('credentials_fault') ?>
-            <form action="<?php echo URLROOT; ?>users/main/" method="POST">
+          <?php flash('hata_yakalandi')?>
+            <form action="<?php echo URLROOT; ?>users/login" method="POST">
             <div class="form-group row">
               <div class="col-sm-12">
                 <input type="text" name="username" placeholder="Kullanıcı Adı" class="form-control form-control-sm <?php echo (!empty($data['username_err'])) ? 'is-invalid' : ''; ?>" value="<?php echo $data['username']; ?>">
@@ -35,7 +34,7 @@
             <hr>
             <div class="row">
               <div class="col-md">
-                <a href="<?php echo URLROOT; ?>users/register" class="btn btn-light btn-block">Parolanızı mı unuttunuz? </a>
+                <a href="<?php echo URLROOT; ?>users/login" class="btn btn-light btn-block">Parolanızı mı unuttunuz? </a>
               </div>
             </div>
           </form>
